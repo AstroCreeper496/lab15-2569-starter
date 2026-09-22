@@ -14,12 +14,7 @@ export default function Enrollent() {
 
       <div className="flex flex-col gap-4">
         {courses.map((course) => (
-          <CourseCard
-            key={course.courseId}
-            course={course}
-            student={currentStudent}
-            enrolledAt={course.courseId}
-          />
+          <CourseCard key={course.courseId} course={course} student={currentStudent}enrolledAt={course.courseId}/> //fix here
         ))}
       </div>
     </div>

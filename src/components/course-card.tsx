@@ -1,18 +1,15 @@
 import type { Course, Student } from "@/lib/types";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+
 type CourseCardProps = {
   course: Course;
   student: Student;
   enrolledAt?: string;
 };
 
+
+//todo: add isEnrolled and trashButton
 export function CourseCard({ course, student, enrolledAt }: CourseCardProps) {
   return (
     <Card>

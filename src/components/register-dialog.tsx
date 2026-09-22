@@ -1,29 +1,31 @@
+//libs
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger,  SelectValue } from "@/components/ui/select"
+
+//types
+import type { Student, Course, Enrollment } from "@/lib/types";
+
+//global consts
+import { courses } from "@/lib/mock-data";
 
 export function RegisterDialog() {
-  const [open, setOpen] = useState(false); // true = แสดง Dialog
+  //consts and vars
+  const [isOpen, setIsOpen] = useState(false); // true = แสดง Dialog
   const [courseId, setCourseId] = useState("");
 
+  //funcs
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault(); // ไม่ให้หน้าเว็บ reload
     setCourseId(""); // เคลียร์ฟอร์ม
-    setOpen(false); // ปิด Dialog
+    setIsOpen(false); // ปิด Dialog
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       {/* ปุ่มที่กดแล้วเปิด Dialog */}
       <DialogTrigger>
         <Button>ลงทะเบียน</Button>
@@ -53,7 +55,7 @@ export function RegisterDialog() {
           </div>
 
           <DialogFooter>
-            <Button type="submit">ยืนยัน</Button>
+            <Button type="submit">ยืนยันการลงทะเบียน</Button>
           </DialogFooter>
         </form>
       </DialogContent>
