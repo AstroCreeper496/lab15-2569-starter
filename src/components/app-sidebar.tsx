@@ -47,7 +47,7 @@ export function AppSidebar() {
         <div className= "flex">
             <Avatar size="lg">
               <AvatarImage src={currentUser.avatar} alt="@shadcn" className="" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>Us</AvatarFallback>
             </Avatar>
             <div className= "flex-col">
               <div>{currentUser.nickname}</div>
