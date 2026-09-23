@@ -1,13 +1,17 @@
-import { BookOpen, Calendar, Home, Settings } from "lucide-react";
+import { BookOpen, Home } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem ,SidebarFooter } from "@/components/ui/sidebar";
+
+import { currentUser } from "@/lib/mock-data-vars";
 
 const items = [
   { title: "หน้าแรก", url: "/", icon: Home },
   { title: "ลงทะเบียนเรียน", url: "/enrollment", icon: BookOpen },
-  { title: "ตารางเรียน", url: "/schedule", icon: Calendar },
-  { title: "ตั้งค่า", url: "/settings", icon: Settings },
+  // { title: "ตารางเรียน", url: "/schedule", icon: Calendar },    501 not implemented
+  // { title: "ตั้งค่า", url: "/settings", icon: Settings },        501 not implemented
 ];
 
 export function AppSidebar() {
@@ -39,6 +43,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <div className= "flex">
+            <Avatar size="lg">
+              <AvatarImage src={currentUser.avatar} alt="@shadcn" className="" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className= "flex-col">
+              <div>{currentUser.nickname}</div>
+              <Badge>{currentUser.role}</Badge>
+            </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -12,7 +12,12 @@ export const students: Student[] = [
   { studentId: "650610001", firstName: "Matt", lastName: "Damon", program: "CPE" },
   { studentId: "650610002", firstName: "Cillian", lastName: "Murphy", program: "CPE", courses: ["261207", "261497"] },
   { studentId: "650610003",  firstName: "Emily", lastName: "Blunt", program: "ISNE", courses: ["269101", "261497"] },
-  { studentId: "650610003",  firstName: "Emily", lastName: "Blunt", program: "ISNE", courses: ["269101", "261497", "269101"] },
+  { studentId: "680610720",  firstName: "Hoopa", lastName: "Lassem", program: "ISNE", courses: [] },
+  { studentId: "680610726",  firstName: "Torracat", lastName: "Dodalla", program: "CPE", courses: [] },
+  { studentId: "680610729",  firstName: "Suthanakit", lastName: "Wongsrichan", program: "CPE", courses: [] },
+  { studentId: "680610730",  firstName: "Emily", lastName: "Blunt", program: "CPE", courses: [] },
+  { studentId: "680610813",  firstName: "Score", lastName: "Bunny", program: "ISNE", courses: [] },
+  { studentId: "650610814",  firstName: "Raboot", lastName: "Bunny", program: "ISNE", courses: [] }
 ];
 
 
@@ -33,8 +38,8 @@ export const enrollments: Enrollment[] = [
 ];
 
 // นักศึกษาที่ "ล็อกอินอยู่" — ไม่มีระบบ Login/Role ในแลปนี้ จึงกำหนดไว้ที่นี่ที่เดียว
-export const CURRENT_STUDENT_ID = "650610002";
+export const CURRENT_STUDENT_ID = "680610729";
 export const currentStudent = students.find((s) => s.studentId === CURRENT_STUDENT_ID,)!;
 
 // ข้อมูลส่วนแสดงสถานะผู้ใช้ที่ Sidebar (ข้อ 5 ของโจทย์) — แก้เป็นชื่อเล่นและรูปของตัวเอง
-export const currentUser = { nickname: "Cillian", role: "STUDENT" as "STUDENT" | "ADMIN", avatar: "/profile.svg" }; // วางรูปไว้ที่ public
+export const currentUser = { nickname: "Suthanakit", role: "STUDENT" as "STUDENT" | "ADMIN", avatar: "src/assets/avatarHead.png" }; // วางรูปไว้ที่ public

@@ -1,8 +1,7 @@
 //libs
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 import { Clock2Icon } from "lucide-react"
-import { ChevronDownIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -13,31 +12,44 @@ import { Select,  SelectContent, SelectGroup,  SelectItem, SelectTrigger, Select
 
 
 //types
-import type { Student, Course, Enrollment } from "@/lib/types";
+import type { Enrollment } from "@/lib/types";
 
 //global consts
-import { courses, enrollments } from "@/lib/mock-data-vars";
-import { CURRENT_STUDENT_ID, currentStudent, currentUser } from "@/lib/mock-data-vars";
+import { courses } from "@/lib/mock-data-vars";
+import { CURRENT_STUDENT_ID, currentStudent } from "@/lib/mock-data-vars";
 
+type RegisterDialogProps = {
+  enrollments: Enrollment[];
+  onEnrollmentCreated: (enrollment: Enrollment) => void;
+};
 
-
-export function RegisterDialog() {
+export function RegisterDialog({ enrollments, onEnrollmentCreated }: RegisterDialogProps) {
   //consts and vars
   const [isOpen, setIsOpen] = useState(false); // true = แสดง Dialog
   const [courseId, setCourseId] = useState("");
-  const [enrollmentlist, setEnrollmentlist] = useState(enrollments)
-  const [userEnrollments, setUserEnrollments] = useState(enrollmentlist.filter(u => u.studentId === CURRENT_STUDENT_ID))
-  const [AvailableCourses, setAvailableCourses] = useState(courses.filter(course => !enrollments.some(enroll => enroll.studentId === CURRENT_STUDENT_ID && enroll.courseId === course.courseId)))
+  const [time, setTime] = useState("00:00");
+  const availableCourses = courses.filter((course) => !enrollments.some((enrollment) => enrollment.studentId === CURRENT_STUDENT_ID && enrollment.courseId === course.courseId));
 
   
 
-  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault(); // ไม่ให้หน้าเว็บ reload
-    setCourseId(""); // เคลียร์ฟอร์ม
-    setIsOpen(false); // ปิด Dialog
-    setEnrollmentlist([...enrollmentlist,               ]) //save enrollments
+    if (!courseId) return;
 
+    const enrollment: Enrollment = {
+      studentId: CURRENT_STUDENT_ID,
+      courseId,
+      enrolledAt: `${new Date().toISOString().slice(0, 10)}T${time}:00`,
+    };
+    onEnrollmentCreated(enrollment);
+    setCourseId(""); // เคลียร์ฟอร์ม
+    setTime("00:00");
+    setIsOpen(false); // ปิด Dialog
+    
   }
+
+
+
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -56,16 +68,16 @@ export function RegisterDialog() {
 
           <div className="space-y-2">
             <Label htmlFor="courses">เลือกวิชา</Label>
-            <Select defaultValue="เลือกวิชา">
+            <Select value={courseId} onValueChange={(value) => setCourseId(value ?? "")}>
 
             <SelectTrigger className="w-full">
-              <SelectValue />
+              <SelectValue placeholder="เลือกวิชา" className="min-w-0" />
             </SelectTrigger>
 
             <SelectContent sideOffset={4}>
               <SelectGroup>
-                {AvailableCourses.map((item) => (
-                  <SelectItem key={item.courseId + " - " + item.courseTitle} value={item.courseId + " - " + item.courseTitle}>
+                {availableCourses.map((item) => (
+                  <SelectItem key={item.courseId} value={item.courseId}>
                     {item.courseId + " - " + item.courseTitle}
                   </SelectItem>
                 ))}
@@ -77,7 +89,7 @@ export function RegisterDialog() {
           <div className="space-y-2">
             <Label htmlFor="studentId">เวลา</Label>
             <InputGroup>
-              <InputGroupInput id="time-from" type="time" step="60" defaultValue="10:30" className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"/>
+              <InputGroupInput id="time-from" type="time" step="60" value={time} onChange={(event) => setTime(event.target.value)} className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"/>
                 <InputGroupAddon>
                   <Clock2Icon className="text-muted-foreground" />
                 </InputGroupAddon>
