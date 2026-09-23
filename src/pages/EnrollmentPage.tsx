@@ -1,6 +1,6 @@
 import { CourseCard } from "@/components/course-card";
 import { RegisterDialog } from "@/components/register-dialog";
-import { courses, currentStudent } from "@/lib/mock-data";
+import { courses, currentStudent } from "@/lib/mock-data-vars";
 
 export default function Enrollent() {
   return (
