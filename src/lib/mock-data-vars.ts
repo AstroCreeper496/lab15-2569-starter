@@ -42,4 +42,4 @@ export const CURRENT_STUDENT_ID = "680610729";
 export const currentStudent = students.find((s) => s.studentId === CURRENT_STUDENT_ID,)!;
 
 // ข้อมูลส่วนแสดงสถานะผู้ใช้ที่ Sidebar (ข้อ 5 ของโจทย์) — แก้เป็นชื่อเล่นและรูปของตัวเอง
-export const currentUser = { nickname: "Suthanakit", role: "STUDENT" as "STUDENT" | "ADMIN", avatar: "src/assets/avatarHead.png" }; // วางรูปไว้ที่ public
+export const currentUser = { nickname: "Suthanakit", role: "STUDENT" as "STUDENT" | "ADMIN", avatar: "public/avatarHead.png" }; // วางรูปไว้ที่ public
